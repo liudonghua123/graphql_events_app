@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require('cors')
 const bodyParser = require("body-parser");
-const graphqlHttp = require("express-graphql");
+const { graphqlHTTP } = require("express-graphql");
 const mongoose = require("mongoose");
 const isAuth = require("./middleware/is-auth");
 
@@ -22,10 +22,12 @@ app.use(isAuth);
 
 app.use(
   "/graphql",
-  graphqlHttp({
+  graphqlHTTP({
     schema: graphqlSchema,
     rootValue: graphqlResolvers,
-    graphiql: true
+    graphiql: {
+      headerEditorEnabled: true,
+    },
   })
 );
 
